@@ -38,6 +38,7 @@ function generatePassword() {
     // Refactor length variable to clean up any decimals from tricksters
     length = Math.ceil(userLength);
 
+  // A series of functions to determine criteria
   function criteriaCheck() {
       function lowerCheck() {
         var lcCheck = window.confirm("Would you like to add lowercase characters to your password?");
@@ -75,6 +76,7 @@ function generatePassword() {
       upperCheck();
       numberCheck();
       specialCheck();
+      // If no character types is seleted, start over
       if (!lowerChar && !upperChar && !numberChar && !specialChar) {
         alert("You must select at least one character type!")
         criteriaCheck();
@@ -82,7 +84,110 @@ function generatePassword() {
       }
     }
 
+    function magic() {
+    var lcSet = "abcdefghijklmnopqrstuvwxyz";
+    var upSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var numSet = "0123456789"
+    var spSet = " !#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+    var resultSet = "";
+
+    // Lots of conditional statements for output... must be refactored
+    if (lowerChar && upperChar && numberChar && specialChar) {
+      var compChar = lcSet + upSet + numSet + spSet;
+      for(i=0; i<length; i++) {
+        resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+        result = resultSet;
+      }
+    } else if (lowerChar && upperChar && numberChar && !specialChar) {
+        var compChar = lcSet + upSet + numSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (lowerChar && upperChar && !numberChar && !specialChar) {
+        var compChar = lcSet + upSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (lowerChar && !upperChar && !numberChar && !specialChar) {
+        var compChar = lcSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (lowerChar && upperChar && !numberChar && specialChar) {
+        var compChar = lcSet + upSet + spSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (lowerChar && !upperChar && numberChar && specialChar) {
+        var compChar = lcSet + numSet + spSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (lowerChar && !upperChar && numberChar && !specialChar) {
+        var compChar = lcSet + numSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (lowerChar && !upperChar && !numberChar && specialChar) {
+        var compChar = lcSet + spSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (!lowerChar && upperChar && numberChar && specialChar) {
+        var compChar = upSet + numSet + spSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (!lowerChar && upperChar && numberChar && !specialChar) {
+        var compChar = upSet + numSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (!lowerChar && upperChar && !numberChar && specialChar) {
+        var compChar = upSet + spSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (!lowerChar && upperChar && !numberChar && !specialChar) {
+        var compChar = upSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (!lowerChar && !upperChar && numberChar && specialChar) {
+        var compChar = numSet + spSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    } else if (!lowerChar && !upperChar && numberChar && !specialChar) {
+        var compChar = numSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    }
+      else if (!lowerChar && !upperChar && !numberChar && specialChar) {
+        var compChar = spSet;
+        for(i=0; i<length; i++) {
+          resultSet += compChar.charAt(Math.floor(Math.random()*compChar.length));
+          result = resultSet;
+        }
+    }
+  }
+
   criteriaCheck();
+  magic();
   console.log("Password length is: " + Math.ceil(length));
   console.log(length);
   console.log(lowerChar);
