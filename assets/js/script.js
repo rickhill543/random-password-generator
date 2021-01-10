@@ -10,36 +10,45 @@ var length;
 var result;
 
 function generatePassword() {
+
+  function lengthCheck () {
   // Define default userLength as a catch-all to prevent NaN on parsed prompt
-  userLength = 0;
-  userLength = parseInt(prompt("How many characters would you like for your password? \nValues between 8 and 128 please."), 10) || 0;
+  userLength = null;
+  userLength = prompt("How many characters would you like for your password? \nValues between 8 and 128 please.");
+  userLengthParsed = parseInt(userLength, 10);
 
   // Conditional statements to ensure user enters correct data type
-  if (userLength == 0) {
-    alert("You must select a number between 8 and 128. Try again.");
-    return "Cancelled";
+  if (userLength == null) {
+    length = false;
+    return null;
+  } else if (isNaN(userLengthParsed)) {
+      alert("You must select a number between 8 and 128. Try again.");
+      lengthCheck();
+  } else if (userLengthParsed < 8 || userLengthParsed > 128 || typeof userLengthParsed != "number") {
+      alert("You must select a number between 8 and 128. Try again.");
+      lengthCheck();
   } else {
-    while (userLength < 8 || userLength > 128 || typeof userLength != "number") {
-      alert("Invalid length. Please choose a number between 8 and 128.");
-      userLength = prompt("How many characters would you like for your password? \nValues between 8 and 128 please.");
-      generatePassword();
-    }
+    // Refactor length variable to clean up any decimals from tricksters
+    length = Math.ceil(userLengthParsed);
+    console.log("Password length is: " + length);
+    return length;
+}
   }
-
-  // Refactor length variable to clean up any decimals from tricksters
-  length = Math.ceil(userLength);
 
   // Criteria check function to confirm what character types to include in the random password
   function criteriaCheck() {
       lcCheck = window.confirm("Would you like to add lowercase characters to your password?");
+      console.log("Lowercase letters added?: " + lcCheck);
       upCheck = window.confirm("Would you like to add uppercase characters to your password?");
+      console.log("Uppercase letters added?: " + upCheck);
       numCheck = window.confirm("Would you like to add numeric characters to your password?");
+      console.log("Numbers added?: " + numCheck);
       spCheck = window.confirm("Would you like to add special characters to your password?");
+      console.log("Special characters added?: " + spCheck);
       // If no character types are selected, loop back around until at least one is selected
       if (!lcCheck && !upCheck && !numCheck && !spCheck) {
         alert("You must select at least one character type!")
         criteriaCheck();
-      } else {
       }
   }
 
@@ -52,6 +61,7 @@ function generatePassword() {
     var criteriaSet = "";
     var randomSet = "";
 
+    // Concatenates all "true" sets to an initialized empty string to serve as the criteria set to randomly choose from
     if (lcCheck == true) {criteriaSet += lcSet;}
     if (upCheck == true) {criteriaSet += upSet;}
     if (numCheck == true) {criteriaSet += numSet;}
@@ -63,14 +73,15 @@ function generatePassword() {
       result = randomSet;
     }
   }
+
+  lengthCheck ();
+  if (!length) {
+    return "Cancelled";
+  }
+ 
   criteriaCheck();
   magic();
 
-  console.log("Password length is: " + length);
-  console.log("Lowercase letters added?: " + lcCheck);
-  console.log("Uppercase letters added?: " + upCheck);
-  console.log("Numbers added?: " + numCheck);
-  console.log("Special characters added?: " + spCheck);
   console.log("Super secret password: " + result);
   return(result);
 }
