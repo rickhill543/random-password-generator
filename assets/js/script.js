@@ -9,6 +9,10 @@
 
 // Initialize global variables
 var length;
+var lowerChar;
+var upperChar;
+var numberChar;
+var specialChar;
 var result;
 
 function generatePassword() {
@@ -34,7 +38,57 @@ function generatePassword() {
     // Refactor length variable to clean up any decimals from tricksters
     length = Math.ceil(userLength);
 
-  
+  function criteriaCheck() {
+      function lowerCheck() {
+        var lcCheck = window.confirm("Would you like to add lowercase characters to your password?");
+        if (lcCheck) {
+          lowerChar = 1;
+        } else {
+            lowerChar = 0;
+            }
+      }
+      function upperCheck() {
+        var upCheck = window.confirm("Would you like to add uppercase characters to your password?");
+        if (upCheck) {
+          upperChar = 1;
+        } else {
+            upperChar = 0;
+            }
+      }
+      function numberCheck() {
+        var numCheck = window.confirm("Would you like to add numeric characters to your password?");
+        if (numCheck) {
+          numberChar = 1;
+        } else {
+            numberChar = 0;
+            }
+      }
+      function specialCheck() {
+        var spCheck = window.confirm("Would you like to add special characters to your password?");
+        if (spCheck) {
+          specialChar = 1;
+        } else {
+            specialChar = 0;
+            }
+      }
+      lowerCheck();
+      upperCheck();
+      numberCheck();
+      specialCheck();
+      if (!lowerChar && !upperChar && !numberChar && !specialChar) {
+        alert("You must select at least one character type!")
+        criteriaCheck();
+      } else {
+      }
+    }
+
+  criteriaCheck();
+  console.log("Password length is: " + Math.ceil(length));
+  console.log(length);
+  console.log(lowerChar);
+  console.log(upperChar);
+  console.log(numberChar);
+  console.log(specialChar);
   console.log(result);
   return(result);
 }
